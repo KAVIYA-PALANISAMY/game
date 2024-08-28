@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rock Paper Scissor</title>
+    <style>
+        #but1 {
+            border: 1px solid #ddd;
+            border-radius: 4%;
+            padding: 5px;
+            width: 150px;
+            background-color: white;
+        }
+
+        .round-image {
+            width: 24px;
+            /* Adjust the size as needed */
+            height: 80px;
+            /* Adjust the size as needed */
+            border-radius: 50%;
+            background-size: cover;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        #div1 {
+            background-color: #FEE715FF;
+            margin-top: 100px;
+            margin-right: 150px;
+            margin-left: 150px;
+            width: 80%;
+            /* You can adjust the percentage or use px/em */
+            height: 300px;
+            /* Remove the stray slash */
+
+            border-radius: 15px;
+            /* Rounded corners */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            /* Adds a shadow for depth */
+        }
+
+        body {
+            background-color: #101820FF;
+            background-position: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+
+        }
+
+        #hh {
+            color: white;
+        }
+
+        #b1 {
+
+            position: absolute;
+            background-color: #5a168e;
+            color: #fff;
+            width: 100px;
+            height: 25px;
+        }
+
+        #b1:active {
+            background-color: grey;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h1 id="hh">rock paper scissor game</h1>
+        <div id="div1">
+
+            <br><br><br><br>
+            <button onclick="playGame('rock')" type="submit"><img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7xmslC1pWaZHMg5-Z2Jg4MeWQ6GMr4Uft__0kRyyzSAitD91vHH_rZUPIK5Zd3izzgZU&usqp=CAU"
+                    alt="buttonpng1" id="but1" class="round-image" />Rock</button>
+            <button onclick="playGame('paper')" type="submit"><img
+                    src="https://emojiisland.com/cdn/shop/products/Raised_Hand_Emoji_Icon_ios10_grande.png?v=1571606092"
+                    alt="buttonpng2" id="but1" class="round-image" />Paper</button>
+            <button onclick="playGame('scissor')" type="submit"><img
+                    src="https://media.istockphoto.com/id/1407699129/photo/back-to-school-emoji-concept-with-student-while-using-a-scissors.jpg?s=612x612&w=0&k=20&c=sgvd2wao2BVltlM26iWjhtEo9DPbFt1-H6PU6gnYrM0="
+                    alt="buttonpng3" id="but1" class="round-image" />Scissor</button>
+            <br><br>
+            <button id="b1" onclick="
+        score.Wins=0,
+        score.Losses=0,
+        score.Tie=0,
+        localStorage.removeItem('score')
+    ">Reset Score</button>
+            <br><br>
+    </center>
+    </div>
+    <script>
+        let score = JSON.parse(localStorage.getItem('score')) || {
+            Wins: 0,
+            Losses: 0,
+            Tie: 0
+        };
+        function playGame(playersMove) {
+            const computerMove = pickComputerMove();
+            let result = '';
+            if (playersMove === "rock") {
+                if (computerMove === 'rock')
+                    result = 'tie';
+                else if (computerMove === 'paper')
+                    result = 'lose';
+                else
+                    result = 'win';
+            }
+            else if (playersMove == "paper") {
+                if (computerMove === 'rock')
+                    result = 'win';
+                else if (computerMove === 'paper')
+                    result = 'tie';
+                else
+                    result = 'lose';
+            }
+            else {
+                if (computerMove === 'rock')
+                    result = 'lose';
+                else if (computerMove === 'paper')
+                    result = 'win';
+                else
+                    result = 'tie';
+            }
+            if (result === 'win') {
+                score.Wins += 1;
+            }
+            else if (result === 'lose') {
+                score.Losses += 1;
+            }
+            else {
+                score.Tie += 1;
+            }
+            localStorage.setItem('score', JSON.stringify(score))
+            alert('You ' + result + '.\nYou picked ' + playersMove + '.\nComputer picked ' + computerMove + '\nWins:' + score.Wins + ' Losses:' + score.Losses + ' Tie:' + score.Tie);
+        }
+
+        function pickComputerMove() {
+            const randomNumber = Math.random();
+            if (randomNumber >= 0 && randomNumber <= 1 / 3)
+                return 'rock';
+            else if (randomNumber > 1 / 3 && randomNumber <= 2 / 3)
+                return 'paper';
+            else
+                return 'scissor';
+        }
+    </script>
+</body>
+
+</html>
